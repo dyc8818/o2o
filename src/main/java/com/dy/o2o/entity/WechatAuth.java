@@ -3,16 +3,16 @@ package com.dy.o2o.entity;
 import java.util.Date;
 
 public class WechatAuth {
-    private long wechatAuthId;
+    private Long wechatAuthId;
     private String openId;
     private Date createTime;
     private PersonInfo personInfo;
 
-    public long getWechatAuthId() {
+    public Long getWechatAuthId() {
         return wechatAuthId;
     }
 
-    public void setWechatAuthId(long wechatAuthId) {
+    public void setWechatAuthId(Long wechatAuthId) {
         this.wechatAuthId = wechatAuthId;
     }
 

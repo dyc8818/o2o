@@ -3,7 +3,7 @@ package com.dy.o2o.entity;
 import java.util.Date;
 
 public class LocalAuth {
-    private long LocalAuthId;
+    private Long LocalAuthId;
     private String name;
     private String password;
     private Date createTime;
