@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Area {
     private Integer areaId;
-    private String name;
+    private String areaName;
     private Integer priority;
     private Date createTime;
     private Date lastEditTime;
@@ -17,12 +17,12 @@ public class Area {
         this.areaId = areaId;
     }
 
-    public String getName() {
-        return name;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAreaName(String name) {
+        this.areaName = name;
     }
 
     public Integer getPriority() {
