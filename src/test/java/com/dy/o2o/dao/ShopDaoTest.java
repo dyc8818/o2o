@@ -17,6 +17,17 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     @Test
+    public void testUpdateShop(){
+        Shop shop = new Shop();
+        shop.setShopDesc("我是update");
+        shop.setShopImg("我是update");
+        shop.setShopAddr("和平西");
+        shop.setCreateTime(new Date());
+        shop.setShopId(2L);
+        int effectNum = shopDao.updateShop(shop);
+        System.out.println(effectNum);
+    }
+    @Test
     public void testInsertShop(){
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -40,5 +51,7 @@ public class ShopDaoTest extends BaseTest {
         int effectNum = shopDao.insertShop(shop);
         System.out.println(effectNum);
     }
+
+
 
 }
