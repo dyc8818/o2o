@@ -135,6 +135,14 @@
             <artifactId>commons-collections</artifactId>
             <version>3.2</version>
         </dependency>
+        <!--添加缩略图处理工具类-->
+        <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+
 
     </dependencies>
 
