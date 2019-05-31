@@ -3,7 +3,7 @@ package com.dy.o2o.entity;
 import java.util.Date;
 
 public class PersonInfo {
-    private Long id;
+    private Long userId;
     private String name;
     private String profileImg;
     private String email;
@@ -14,12 +14,12 @@ public class PersonInfo {
     private Date createTime;
     private Date lastEditTime;
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long id) {
+        this.userId = id;
     }
 
     public String getName() {

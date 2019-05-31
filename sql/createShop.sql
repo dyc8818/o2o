@@ -3,8 +3,8 @@ create table `tb_shop`
 (
     `shop_id`          int(10)      not null auto_increment,
     `shop_name`        varchar(255) not null,
-    `shop_Desc`        varchar(1023)         default null,
-    `shop_Addr`        varchar(200)          default null,
+    `shop_desc`        varchar(1023)         default null,
+    `shop_addr`        varchar(200)          default null,
     `phone`            varchar(128)          default null,
     `shop_img`         varchar(1023)         default null,
     `priority`         int(3)                default '0',
