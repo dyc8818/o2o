@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
-public class AreaServiceimplTest extends BaseTest {
+public class AreaServiceImplTest extends BaseTest {
     @Autowired
     AreaService areaService;
 

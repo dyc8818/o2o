@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AreaServiceimpl implements AreaService {
+public class AreaServiceImpl implements AreaService {
     @Autowired
     private AreaDao areaDao;
 

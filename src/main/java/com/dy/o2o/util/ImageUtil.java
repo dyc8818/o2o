@@ -15,7 +15,7 @@ public class ImageUtil {
     private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
     private static final Random r = new Random();
 
-    public static void generateThumbnail(CommonsMultipartFile thumbnail, String targetAddr) {
+    public static String generateThumbnail(File thumbnail, String targetAddr) throws IOException {
         //生成随机名称
         String realFileName = getRandomFileName();
         //获取扩展名
@@ -24,15 +24,17 @@ public class ImageUtil {
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
         File newFile = new File(PathUtil.getImgBasePath() + relativeAddr);
+        System.out.println(thumbnail.getPath());
+        System.out.println(newFile.getPath());
 
-        try {
-            //将收到的数据裁剪到200*200，并添加水印，设置0.5的透明度和0.5的质量
-            Thumbnails.of(thumbnail.getInputStream()).size(200, 200).
-                    watermark(Positions.TOP_RIGHT, ImageIO.read(new File(PathUtil.basePath + "/img/waterMark.jpg")), 0.5f).
-                    outputQuality(0.5f).toFile(newFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        File thumbnailFile = new File(PathUtil.basePath + "img/waterMark.jpg");
+        System.out.println(PathUtil.basePath + "img/waterMark.jpg");
+        //将收到的数据裁剪到200*200，并添加水印，设置0.5的透明度和0.5的质量
+        Thumbnails.of(thumbnail).size(200, 200).
+                watermark(Positions.TOP_RIGHT, ImageIO.read(thumbnailFile), 0.5f).
+                outputQuality(0.5f).toFile(newFile);
+
+        return relativeAddr;
 
     }
 
@@ -61,12 +63,13 @@ public class ImageUtil {
 
     /**
      * 创建目标路径的目录
+     *
      * @param targetAddr
      */
     private static void makeDirPath(String targetAddr) {
-        String realFileParentPath = PathUtil.getImgBasePath()+targetAddr;
+        String realFileParentPath = PathUtil.getImgBasePath() + targetAddr;
         File dirPath = new File(realFileParentPath);
-        if(!dirPath.exists()){
+        if (!dirPath.exists()) {
             //递归创建文件夹
             dirPath.mkdirs();
         }
@@ -74,10 +77,11 @@ public class ImageUtil {
 
     /**
      * 获取扩展名
-     * @return
+     *
      * @param thumbnail
+     * @return
      */
-    private static String getFileExtension(CommonsMultipartFile thumbnail) {
+    private static String getFileExtension(File thumbnail) {
         String originName = thumbnail.getName();
         return originName.substring(originName.lastIndexOf("."));
     }
@@ -88,13 +92,14 @@ public class ImageUtil {
 
     /**
      * 生成随机文件名，当前年月日小时分钟秒+五位随机数
+     *
      * @param
      * @throws IOException
      */
     private static String getRandomFileName() {
-        int random = r.nextInt(89999)+10000;
+        int random = r.nextInt(89999) + 10000;
         String nowTimeStr = sDateFormat.format(new Date());
-        return nowTimeStr+random;
+        return nowTimeStr + random;
     }
 
 

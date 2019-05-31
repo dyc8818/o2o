@@ -18,7 +18,7 @@
             <if test="shopAddr!=null">shop_addr=#{shopAddr},</if>
             <if test="phone!=null">shop_name=#{phone},</if>
             <if test="shopImg!=null">shop_img=#{shopImg},</if>
-            <if test="priority!=null">priotiry=#{priority},</if>
+            <if test="priority!=null">priority=#{priority},</if>
             <if test="enableStatus!=null">enable_status=#{enableStatus},</if>
             <if test="advice!=null">advice=#{advice},</if>
             <if test="createTime!=null">create_time=#{createTime},</if>

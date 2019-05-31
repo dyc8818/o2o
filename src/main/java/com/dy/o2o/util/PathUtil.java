@@ -15,7 +15,7 @@ public class PathUtil {
         return basePath;
     }
     public static String getShopImagePath(long shopId){
-        String imagePath = "/home/dy/linux/linux/WorkSpace/java/o2o/upload/item/shop/"+shopId+"/";
+        String imagePath = "upload/images/shop/"+shopId+"/";
         return imagePath.replace("/",separator);
     }
 }
