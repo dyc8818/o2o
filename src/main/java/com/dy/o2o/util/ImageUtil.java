@@ -7,6 +7,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -15,22 +16,19 @@ public class ImageUtil {
     private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
     private static final Random r = new Random();
 
-    public static String generateThumbnail(File thumbnail, String targetAddr) throws IOException {
+    public static String generateThumbnail(InputStream thumbnailInputStream,String fileName, String targetAddr) throws IOException {
         //生成随机名称
         String realFileName = getRandomFileName();
         //获取扩展名
-        String extension = getFileExtension(thumbnail);
+        String extension = getFileExtension(fileName);
         //生成目标目录
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
         File newFile = new File(PathUtil.getImgBasePath() + relativeAddr);
-        System.out.println(thumbnail.getPath());
-        System.out.println(newFile.getPath());
-
         File thumbnailFile = new File(PathUtil.basePath + "img/waterMark.jpg");
         System.out.println(PathUtil.basePath + "img/waterMark.jpg");
         //将收到的数据裁剪到200*200，并添加水印，设置0.5的透明度和0.5的质量
-        Thumbnails.of(thumbnail).size(200, 200).
+        Thumbnails.of(thumbnailInputStream).size(200, 200).
                 watermark(Positions.TOP_RIGHT, ImageIO.read(thumbnailFile), 0.5f).
                 outputQuality(0.5f).toFile(newFile);
 
@@ -78,17 +76,14 @@ public class ImageUtil {
     /**
      * 获取扩展名
      *
-     * @param thumbnail
+     * @param fileName
      * @return
      */
-    public static String getFileExtension(File thumbnail) {
-        String originName = thumbnail.getName();
-        return originName.substring(originName.lastIndexOf("."));
+    public static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
-    public static String getFileExtension(String file) {
-        return file.substring(file.lastIndexOf("."));
-    }
+
 
     /**
      * 生成随机文件名，当前年月日小时分钟秒+五位随机数
