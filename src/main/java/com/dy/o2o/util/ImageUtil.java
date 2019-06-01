@@ -81,12 +81,12 @@ public class ImageUtil {
      * @param thumbnail
      * @return
      */
-    private static String getFileExtension(File thumbnail) {
+    public static String getFileExtension(File thumbnail) {
         String originName = thumbnail.getName();
         return originName.substring(originName.lastIndexOf("."));
     }
 
-    private static String getFileExtension(String file) {
+    public static String getFileExtension(String file) {
         return file.substring(file.lastIndexOf("."));
     }
 
@@ -96,7 +96,7 @@ public class ImageUtil {
      * @param
      * @throws IOException
      */
-    private static String getRandomFileName() {
+    public static String getRandomFileName() {
         int random = r.nextInt(89999) + 10000;
         String nowTimeStr = sDateFormat.format(new Date());
         return nowTimeStr + random;
