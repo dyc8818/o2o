@@ -26,7 +26,7 @@ public class ImageUtil {
         String relativeAddr = targetAddr + realFileName + extension;
         File newFile = new File(PathUtil.getImgBasePath() + relativeAddr);
         File thumbnailFile = new File(PathUtil.basePath + "img/waterMark.jpg");
-        System.out.println(PathUtil.basePath + "img/waterMark.jpg");
+      //  System.out.println(PathUtil.basePath + "img/waterMark.jpg");
         //将收到的数据裁剪到200*200，并添加水印，设置0.5的透明度和0.5的质量
         Thumbnails.of(thumbnailInputStream).size(200, 200).
                 watermark(Positions.TOP_RIGHT, ImageIO.read(thumbnailFile), 0.5f).
