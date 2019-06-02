@@ -15,6 +15,7 @@ import com.dy.o2o.util.PathUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,6 +67,7 @@ public class ShopManagementController {
     @RequestMapping(value = "registershop", method = RequestMethod.POST)
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
+
         //1.接收并转化参数，包括图片信息和店铺信息
         Map<String, Object> modelmap = new HashMap<>();
         String shopStr = HttpServletRequestUtil.getString(request, "shopStr");

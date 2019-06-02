@@ -1,6 +1,7 @@
 /**
  *
  */
+
 $(function () {
     var initUrl = '/o2o/shopadmin/getshopinitinfo';
     var registerShopUrl = '/o2o/shopadmin/registershop';
@@ -44,14 +45,16 @@ $(function () {
         };
         var shopImg = $('#shop-img')[0].files[0];
         var formData = new FormData();
-        formData.append('shopImg', shopImg);
+
         formData.append('shopStr', JSON.stringify(shop));
+        formData.append('shopImg', shopImg);
 
         $.ajax({
             url: registerShopUrl,
             type: 'POST',
             data: formData,
             contentType: false,
+            processData : false,
             cache: false,
             success: function (data) {
                 if (data.success) {

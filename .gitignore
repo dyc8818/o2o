@@ -19,6 +19,7 @@ img/*
 *.tar.gz
 *.rar
 .idea/*
+out/*
 *.iml
 target/*
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
