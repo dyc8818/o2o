@@ -9,6 +9,7 @@ import com.dy.o2o.enums.ShopStateEnum;
 import com.dy.o2o.service.AreaService;
 import com.dy.o2o.service.ShopCategoryService;
 import com.dy.o2o.service.ShopService;
+import com.dy.o2o.util.CodeUtil;
 import com.dy.o2o.util.HttpServletRequestUtil;
 import com.dy.o2o.util.ImageUtil;
 import com.dy.o2o.util.PathUtil;
@@ -53,9 +54,9 @@ public class ShopManagementController {
             //获取全部列表
             shopCategoryList = shopCategoryService.getShopCategoryList(new ShopCategory());
             areaList = areaService.getAreaList();
-            modelMap.put("shopCategoryList",shopCategoryList);
-            modelMap.put("areaList",areaList);
-            modelMap.put("success",true);
+            modelMap.put("shopCategoryList", shopCategoryList);
+            modelMap.put("areaList", areaList);
+            modelMap.put("success", true);
         } catch (Exception e) {
             modelMap.put("success", false);
             modelMap.put("errMsg", e.getMessage());
@@ -68,8 +69,16 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
 
-        //1.接收并转化参数，包括图片信息和店铺信息
+        //校验验证码
         Map<String, Object> modelmap = new HashMap<>();
+        if (!CodeUtil.checkVerifyCode(request)) {
+
+            modelmap.put("success", false);
+            modelmap.put("errMsg", "验证码输入错误");
+            return modelmap;
+
+        }
+        //1.接收并转化参数，包括图片信息和店铺信息
         String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
         //使用jackson dataBind用于读取json中的对象
         ObjectMapper mapper = new ObjectMapper();

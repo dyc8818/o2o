@@ -5,7 +5,7 @@
 $(function () {
     var initUrl = '/o2o/shopadmin/getshopinitinfo';
     var registerShopUrl = '/o2o/shopadmin/registershop';
-    alert(initUrl);
+    // alert(initUrl);
     getShopInitInfo();
 
     function getShopInitInfo() {
@@ -44,7 +44,16 @@ $(function () {
             }).data('id')
         };
         var shopImg = $('#shop-img')[0].files[0];
+
+        //获得输入的验证码
+        var verifyCodeActual= $('#j_kaptcha').val();
+        if(!verifyCodeActual){
+            $.toast('请输入验证码');
+            return;
+        }
+
         var formData = new FormData();
+        formData.append('verifyCodeActual',verifyCodeActual);
 
         formData.append('shopStr', JSON.stringify(shop));
         formData.append('shopImg', shopImg);
@@ -62,8 +71,9 @@ $(function () {
                 } else {
                     $.toast('提交失败' + data.errMsg)
                 }
+                $('#kaptcha_img').click();
             }
-        })
+        });
 
 
     });
