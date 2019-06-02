@@ -1,9 +1,13 @@
 package com.dy.o2o.controller.shopAdmin;
 
 import com.dy.o2o.dto.ShopExecution;
+import com.dy.o2o.entity.Area;
 import com.dy.o2o.entity.PersonInfo;
 import com.dy.o2o.entity.Shop;
+import com.dy.o2o.entity.ShopCategory;
 import com.dy.o2o.enums.ShopStateEnum;
+import com.dy.o2o.service.AreaService;
+import com.dy.o2o.service.ShopCategoryService;
 import com.dy.o2o.service.ShopService;
 import com.dy.o2o.util.HttpServletRequestUtil;
 import com.dy.o2o.util.ImageUtil;
@@ -20,14 +24,44 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/shopadmin")
 public class ShopManagementController {
     @Autowired
-    ShopService shopService;
+    private ShopService shopService;
+
+    @Autowired
+    private ShopCategoryService shopCategoryService;
+
+    @Autowired
+    private AreaService areaService;
+
+    //获得area和category 的list
+    @RequestMapping(value = "getshopinitinfo", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getShopInitInfo() {
+        Map<String, Object> modelMap = new HashMap<>();
+        List<ShopCategory> shopCategoryList = new ArrayList<>();
+        List<Area> areaList = new ArrayList<>();
+        try {
+            //获取全部列表
+            shopCategoryList = shopCategoryService.getShopCategoryList(new ShopCategory());
+            areaList = areaService.getAreaList();
+            modelMap.put("shopCategoryList",shopCategoryList);
+            modelMap.put("areaList",areaList);
+            modelMap.put("success",true);
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+
+        }
+        return modelMap;
+    }
 
     @RequestMapping(value = "registershop", method = RequestMethod.POST)
     @ResponseBody
