@@ -13,4 +13,7 @@
         <!--开启驼峰命名的转换-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <plugins>
+        <plugin interceptor="com.dy.o2o.dao.split.DynamicDataSourceInterceptor"></plugin>
+    </plugins>
 </configuration>

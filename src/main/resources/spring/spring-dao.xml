@@ -8,12 +8,9 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!--2.数据库连接池-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!--配置连接池属性-->
-        <property name="driverClass" value="${jdbc.driver}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="user" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.passowrd}"/>
+    <bean id="abstractDataSource" abstract="true" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+
         <!--c3p0连接池私有属性-->
         <property name="maxPoolSize" value="30"/>
         <property name="minPoolSize" value="10"/>
@@ -24,6 +21,39 @@
         <!--获取连接失败重试次数-->
         <property name="acquireIncrement" value="2"/>
     </bean>
+
+    <bean id="master" parent="abstractDataSource">
+        <!--配置数据库属性-->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.master.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.passowrd}"/>
+    </bean>
+
+    <bean id="slave" parent="abstractDataSource">
+        <!--配置数据库属性-->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.slave.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.passowrd}"/>
+    </bean>
+
+    <!--配置动态数据源-->
+    <bean id="dynamicDataSource" class="com.dy.o2o.dao.split.DynamicDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry value-ref="master" key="master"></entry>
+                <entry value-ref="slave" key="slave"></entry>
+            </map>
+        </property>
+    </bean>
+    <!--配置懒加载数据源-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <ref bean="dynamicDataSource"></ref>
+        </property>
+    </bean>
+
 
     <!--3.配置mybatis的sqlSessionFactory对象-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
