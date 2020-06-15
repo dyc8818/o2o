@@ -133,7 +133,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2</version>
+            <version>3.2.2</version>
         </dependency>
         <!--添加缩略图处理工具类-->
         <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
